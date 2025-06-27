@@ -1,2 +1,4 @@
 APP_URL=http://localhost:5173
 MAP_SERVICE_API_KEY=<api_key>
+
+https://zoelfanisyam.github.io/my-story-app/
