@@ -20,7 +20,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "scripts/service-worker.js", // ✅ relatif terhadap root = src
+          src: "public/service-worker.js",
           dest: ".", // ke dist root
         },
       ],
