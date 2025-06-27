@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <title>App</title>
+
+    <script type="module" src="/scripts/index.js"></script>
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#204842" />
+
+    <!-- Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+  <body>
+    <header>
+      <a href="#main-content" class="skip-to-content">Skip Content</a>
+      <div class="main-header container">
+        <a class="brand-name" href="#/home">App</a>
+
+        <nav id="navigation-drawer" class="navigation-drawer">
+          <ul id="nav-list" class="nav-list">
+            <li><a href="#/home">Beranda</a></li>
+            <li><a href="#/about">About</a></li>
+            <div id="push-controls">
+              <button id="subscribe-btn" style="display: none">
+                🔔 Subscribe
+              </button>
+              <button id="unsubscribe-btn" style="display: none">
+                🔕 Unsubscribe
+              </button>
+            </div>
+          </ul>
+        </nav>
+
+        <button id="drawer-button" class="drawer-button">☰</button>
+      </div>
+    </header>
+
+    <main tabindex="-1" id="main-content" class="main-content"></main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 App. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

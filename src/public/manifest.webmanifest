@@ -1,0 +1,20 @@
+{
+  "name": "Story App",
+  "short_name": "Story",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#204842",
+  "icons": [
+    {
+      "src": "/icons/favicon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
