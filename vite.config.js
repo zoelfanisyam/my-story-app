@@ -21,12 +21,18 @@ export default defineConfig({
       targets: [
         {
           src: "public/service-worker.js",
-          dest: ".", // ke dist root
+          dest: ".",
         },
       ],
     }),
     VitePWA({
       registerType: "autoUpdate",
+      strategies: "injectManifest",
+      filename: "service-worker.js",
+      // injectManifest: {
+      //   swSrc: resolve(__dirname, "src/public/service-worker.js"),
+      //   swDest: "service-worker.js",
+      // },
       includeAssets: [
         "favicon.ico",
         "icons/icon-192x192.png",
