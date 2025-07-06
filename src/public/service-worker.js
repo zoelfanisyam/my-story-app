@@ -19,7 +19,7 @@ self.addEventListener("push", (event) => {
           options.body = data.body || options.body;
         } catch (err) {
           const text = event.data.text();
-          options.body = text || options.body;
+          options.body = data.options.body || options.body;
         }
       }
 
