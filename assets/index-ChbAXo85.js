@@ -95,16 +95,16 @@ var $=t=>{throw TypeError(t)};var D=(t,e,n)=>e.has(t)||$("Cannot "+n);var l=(t,e
             <select id="camera-list-select" class="camera-select"></select>
             <section class="camera-tools-buttons">
               <button id="camera-start-button" class="camera-button" type="button" aria-label="Aktifkan Kamera">
-                <img src="../../images/camera.png" alt="aktif-camera">
+                <img src="images/camera.png" alt="aktif-camera">
               </button>
               <button id="camera-take-button" class="camera-button" type="button" aria-label="Ambil Foto">
-                <img src="../../images/plus.png" alt="add-gambar">
+                <img src="images/plus.png" alt="add-gambar">
               </button>
               <button id="camera-clear-button" class="camera-button" type="button" aria-label="Hapus Foto">
-                <img src="../../images/minus.png" alt="minus-gambar">
+                <img src="images/minus.png" alt="minus-gambar">
               </button>
               <button id="camera-stop-button" class="camera-button" type="button" aria-label="Matikan Kamera">
-                <img src="../../images/no-camera.png" alt="nonaktif-camera">
+                <img src="images/no-camera.png" alt="nonaktif-camera">
               </button>
             </section>
           </article>
