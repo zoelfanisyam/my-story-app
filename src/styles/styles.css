@@ -260,12 +260,15 @@ button[type="submit"]:hover {
   color: #ffffff;
 }
 
-.delete-story-button {
+.delete-story-button,
+.save-story-button,
+.saved-indicator {
   background-color: white;
   border: none;
   height: 30px;
   cursor: pointer;
   color: #333;
+  text-align: center;
 }
 
 /* Keyframe Animation */
@@ -517,6 +520,31 @@ button[type="submit"] {
 
 #push-controls button:hover {
   opacity: 0.9;
+}
+
+#saveStoryBtn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+#saveStoryBtn:hover {
+  background: linear-gradient(135deg, #66bb6a, #388e3c);
+  transform: translateY(-2px);
+}
+
+#saveStoryBtn:active {
+  background: linear-gradient(135deg, #388e3c, #1b5e20);
+  transform: translateY(0);
 }
 
 /* Footer */

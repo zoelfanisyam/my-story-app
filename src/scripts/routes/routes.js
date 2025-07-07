@@ -3,12 +3,14 @@ import RegisterPresenter from "../pages/auth/register/registerPresenter";
 import getDataPresenter from "../pages/home/getall-page/getDataPresenter";
 import AddPresenter from "../pages/home/add-data/addPresenter";
 import getDetailDataPresenter from "../pages/home/getdetail-page/getDetailDataPresenter";
+import SavedPresenter from "../pages/home/saved-page/savedPresenter";
 
 const login = new LoginPresenter();
 const register = new RegisterPresenter();
 const home = new getDataPresenter();
 const getDetail = new getDetailDataPresenter();
 const add = new AddPresenter();
+const saved = new SavedPresenter();
 
 const routes = {
   "/": {
@@ -31,7 +33,10 @@ const routes = {
     render: () => getDetail.render(),
     afterRender: () => getDetail.afterRender(),
   },
-  // "/about": new AboutPage(),
+  "/saved": {
+    render: () => saved.render(),
+    afterRender: () => saved.afterRender(),
+  },
 };
 
 export default routes;

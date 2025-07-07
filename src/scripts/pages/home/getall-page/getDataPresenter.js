@@ -1,5 +1,6 @@
 // import { getAllStories } from "../../../data/api";
 // import getDataView from "./getDataView";
+// import { StoryIDB } from "../../../utils/idb";
 
 // export default class getDataPresenter {
 //   async render() {
@@ -8,32 +9,40 @@
 
 //   async afterRender() {
 //     try {
+//       // ✅ 1. Ambil data dari API
 //       const result = await getAllStories();
-//       const stories = result.listStory;
-//       getDataView.showStories(stories);
+//       const storiesFromAPI = result.listStory;
 
-//       getDataView.bindAddButton(() => {
-//         if (document.startViewTransition) {
-//           document.startViewTransition(() => {
-//             window.location.hash = "/add";
-//           });
-//         } else {
-//           window.location.hash = "/add";
-//         }
-//       });
-
-//       getDataView.bindDetailButtons((id) => {
-//         if (document.startViewTransition) {
-//           document.startViewTransition(() => {
-//             window.location.hash = `/detail/${id}`;
-//           });
-//         } else {
-//           window.location.hash = `/detail/${id}`;
-//         }
-//       });
+//       // ✅ 2. Simpan data ke IndexedDB
+//       await StoryIDB.clear(); // optional: hapus data lama
+//       await Promise.all(storiesFromAPI.map((story) => StoryIDB.put(story)));
 //     } catch (error) {
-//       getDataView.showError(error.message);
+//       console.warn("Gagal fetch API, ambil dari cache:", error.message);
 //     }
+
+//     // ✅ 3. Ambil data dari IndexedDB untuk ditampilkan
+//     const cachedStories = await StoryIDB.getAll();
+//     getDataView.showStories(cachedStories);
+
+//     // 🧩 Bind tombol-tombol setelah render
+//     this._bindAllButtons();
+//   }
+
+//   _bindAllButtons() {
+//     getDataView.bindAddButton(() => {
+//       window.location.hash = "/add";
+//     });
+
+//     getDataView.bindDetailButtons((id) => {
+//       window.location.hash = `/detail/${id}`;
+//     });
+
+//     getDataView.bindDeleteButtons(async (id) => {
+//       await StoryIDB.delete(id);
+//       const updated = await StoryIDB.getAll();
+//       getDataView.showStories(updated);
+//       this._bindAllButtons(); // re-bind
+//     });
 //   }
 // }
 
@@ -48,23 +57,24 @@ export default class getDataPresenter {
 
   async afterRender() {
     try {
-      // ✅ 1. Ambil data dari API
+      // 1. Ambil data dari API
       const result = await getAllStories();
-      const storiesFromAPI = result.listStory;
+      const stories = result.listStory;
 
-      // ✅ 2. Simpan data ke IndexedDB
-      await StoryIDB.clear(); // optional: hapus data lama
-      await Promise.all(storiesFromAPI.map((story) => StoryIDB.put(story)));
+      // 2. Ambil ID story yang sudah disimpan di IndexedDB
+      const saved = await StoryIDB.getAll();
+      const savedIds = new Set(saved.map((s) => s.id));
+
+      // 3. Tampilkan semua data API ke halaman
+      getDataView.showStories(stories, savedIds);
+
+      // 4. Bind tombol "Simpan" ke story yang belum disimpan
+      this._bindAllButtons();
+      this._bindSaveButtons(stories);
     } catch (error) {
-      console.warn("Gagal fetch API, ambil dari cache:", error.message);
+      console.error("Gagal mengambil data:", error.message);
+      getDataView.showError("Gagal mengambil data dari server.");
     }
-
-    // ✅ 3. Ambil data dari IndexedDB untuk ditampilkan
-    const cachedStories = await StoryIDB.getAll();
-    getDataView.showStories(cachedStories);
-
-    // 🧩 Bind tombol-tombol setelah render
-    this._bindAllButtons();
   }
 
   _bindAllButtons() {
@@ -75,12 +85,21 @@ export default class getDataPresenter {
     getDataView.bindDetailButtons((id) => {
       window.location.hash = `/detail/${id}`;
     });
+  }
 
-    getDataView.bindDeleteButtons(async (id) => {
-      await StoryIDB.delete(id);
+  _bindSaveButtons(stories) {
+    getDataView.bindSaveButtons(async (id) => {
+      const story = stories.find((s) => s.id === id);
+      if (!story) return;
+
+      await StoryIDB.put(story);
+
+      // Ambil ulang data tersimpan untuk update UI
       const updated = await StoryIDB.getAll();
-      getDataView.showStories(updated);
-      this._bindAllButtons(); // re-bind
+      const savedIds = new Set(updated.map((s) => s.id));
+
+      getDataView.showStories(stories, savedIds);
+      this._bindSaveButtons(stories); // re-bind setelah re-render
     });
   }
 }
